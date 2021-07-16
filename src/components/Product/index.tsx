@@ -1,5 +1,6 @@
 import React from 'react'
 import { IProduct } from '../../models/types'
+import './product.scss'
 
 interface ProductProps {
   product: IProduct
@@ -7,7 +8,7 @@ interface ProductProps {
 
 const Product = ({}: ProductProps): JSX.Element => {
   return (
-    <div>
+    <div className='product-main_container'>
       imma product
     </div>
   )
