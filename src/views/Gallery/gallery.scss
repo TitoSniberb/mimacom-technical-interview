@@ -3,4 +3,29 @@
   flex-direction: column;
   width: 100%;
   padding: 32px;
+  background: whitesmoke;
+
+  overflow-y: auto;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 37px;
+  background-color: #C1C7D0;
+  position: absolute;
+  border: 14px solid whitesmoke;
+  border-radius: 100px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #0f62fe;
+  background-clip: padding-box;
+  border: 14px solid transparent;
+  border-radius: 100px;
+  box-shadow: none;
+  min-height: 54px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: none;
+  border: none;
 }

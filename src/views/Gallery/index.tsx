@@ -25,7 +25,7 @@ const Gallery = () => {
   }, [])
 
   return (
-    <div className='gallery-main_container'>
+    <div className='gallery-main_container scrollbar'>
       <h1>Product list</h1>
       <ProductList products={products} />
     </div>
