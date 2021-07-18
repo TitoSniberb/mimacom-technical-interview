@@ -9,14 +9,22 @@ interface ProductProps {
 }
 
 const Product = ({ product: { price, image_url, productDescription, productName, stock, id, favorite } }: ProductProps): JSX.Element => {
-  const [isFavorite, setIsFavorite] = useState(favorite === '1' ? true : false);
+  const [isFavorite, setIsFavorite] = useState(favorite === '1' ? true : false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleFavoriteClick = async (groceryId: string) => {
-    try {
-      await saveToFavorites(groceryId, isFavorite)
-      setIsFavorite(!isFavorite)
-    } catch (err) {
-      console.error(err.message || err)
+    if (!isLoading) {
+      setIsLoading(true)
+      try {
+        await saveToFavorites(groceryId, isFavorite)
+        setIsFavorite(!isFavorite)
+
+      } catch (err) {
+        console.error(err.message || err)
+
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
