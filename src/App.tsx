@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.scss'
-import Cart from './components/layout/Cart'
+import Cart from './components/Cart'
 import Gallery from './views/Gallery';
 
 function App() {
