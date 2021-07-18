@@ -6,15 +6,27 @@ import { getProducts } from './lib/apis/productAPIcalls';
 import { IProduct, IProducts } from './lib/models/types';
 import Gallery from './views/Gallery';
 
+const objectFilter = (obj: Record<any, any>, fn: any): Record<any, any> => Object.fromEntries(Object.entries(obj).filter(fn))
+
 function App() {
   const [products, setProducts] = useState<IProducts>({});
-  const [productsInCart, setProductsInCart] = useState<IProduct[]>([]);
+  const [productsInCart, setProductsInCart] = useState<IProducts>({});
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const pushToCart = (productId: string) => {
+  const addToCart = (productId: string) => {
+    const newProd: IProducts = {
+      [productId]: products[productId]
+    }
 
+    setProductsInCart(prevProducts => ({ ...prevProducts, ...newProd }))
+  }
+
+  const removeFromCart = (productId: string) => {
+    if (productsInCart[products[productId].id]) {
+      setProductsInCart(prevProducts => objectFilter(prevProducts, ([key, value]: IProduct[]) => value.id !== productId))
+    }
   }
 
   useEffect(() => {
@@ -48,8 +60,8 @@ function App() {
           </div>
           :
           <div className='app-products_container'>
-            <Gallery products={products} />
-            <Cart />
+            <Gallery products={products} addToCart={addToCart}  />
+            <Cart cart={productsInCart} removeFromCart={removeFromCart} />
           </div>
       }
       {

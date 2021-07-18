@@ -6,9 +6,10 @@ import './product.scss'
 
 interface ProductProps {
   product: IProduct
+  addToCart: (productId: string) => void
 }
 
-const Product = ({ product: { price, image_url, productDescription, productName, stock, id, favorite } }: ProductProps): JSX.Element => {
+const Product = ({ product: { price, image_url, productDescription, productName, stock, id, favorite }, addToCart }: ProductProps): JSX.Element => {
   const [isFavorite, setIsFavorite] = useState(favorite === '1' ? true : false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -46,7 +47,7 @@ const Product = ({ product: { price, image_url, productDescription, productName,
           <span className='product-info'>{stock}</span>
 
           <div className='product-button_container'>
-            <button className='product-button'>Add</button>
+            <button className='product-button' onClick={() => addToCart(id)}>Add</button>
             <img onClick={() => handleFavoriteClick(id)} src={!isFavorite ? getIcons('HeartBlue') : getIcons('HeartFilledBlue')} alt="heart" width='20' height='20' />
           </div>
         </div>
