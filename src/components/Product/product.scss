@@ -60,10 +60,20 @@
   justify-content: space-between;
 }
 
+.product-button_container {
+  display: flex;
+  align-items: center;
+
+  img {
+    cursor: pointer;
+  }
+}
+
 .product-button {
   border-radius: 8px;
   border: none;
   color: white;
   padding: 4px 16px;
   background: linear-gradient(90deg, rgba(255, 192, 0, 1) 0%, rgba(255, 81, 0, 1) 100%);
+  margin-right: 8px;
 }

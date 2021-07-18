@@ -1,12 +1,25 @@
-import React from 'react'
-import { IProduct } from '../../models/types'
+import React, { useState } from 'react'
+import { saveToFavorites } from '../../lib/apis/productAPIcalls'
+import { IProduct } from '../../lib/models/types'
+import { getIcons } from '../../lib/services/getIcons'
 import './product.scss'
 
 interface ProductProps {
   product: IProduct
 }
 
-const Product = ({ product: { price, image_url, productDescription, productName, stock } }: ProductProps): JSX.Element => {
+const Product = ({ product: { price, image_url, productDescription, productName, stock, id, favorite } }: ProductProps): JSX.Element => {
+  const [isFavorite, setIsFavorite] = useState(favorite === '1' ? true : false);
+
+  const handleFavoriteClick = async (groceryId: string) => {
+    try {
+      await saveToFavorites(groceryId, isFavorite)
+      setIsFavorite(!isFavorite)
+    } catch (err) {
+      console.error(err.message || err)
+    }
+  }
+
   return (
     <div className='product-main_container'>
       <div className='product-image_container'>
@@ -23,7 +36,11 @@ const Product = ({ product: { price, image_url, productDescription, productName,
 
         <div className='product-footer_container'>
           <span className='product-info'>{stock}</span>
-          <button className='product-button'>Add</button>
+
+          <div className='product-button_container'>
+            <button className='product-button'>Add</button>
+            <img onClick={() => handleFavoriteClick(id)} src={!isFavorite ? getIcons('HeartBlue') : getIcons('HeartFilledBlue')} alt="heart" width='20' height='20' />
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IProduct } from '../../models/types';
+import { IProduct } from '../../lib/models/types';
 import Product from '../Product';
 import './productList.scss'
 

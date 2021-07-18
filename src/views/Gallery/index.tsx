@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import LoadingTruck from '../../components/LoadingTruck';
 import ProductList from '../../components/ProductList'
 import { getProducts } from '../../lib/apis/productAPIcalls';
-import { IProduct } from '../../models/types';
+import { IProduct } from '../../lib/models/types';
 import './gallery.scss'
 
 const Gallery = () => {
@@ -35,6 +35,7 @@ const Gallery = () => {
     <div className='gallery-main_container scrollbar'>
       <h1>Product list</h1>
       <ProductList products={products} />
+      
       {
         isLoading && (
           <div className='gallery-truck_Container'>
