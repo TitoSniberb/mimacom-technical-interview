@@ -8,6 +8,14 @@
   overflow-y: auto;
 }
 
+.product-list {
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: 14rem;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  justify-items: center;
+}
+
 .scrollbar::-webkit-scrollbar {
   width: 37px;
   background-color: #C1C7D0;

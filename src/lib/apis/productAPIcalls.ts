@@ -1,4 +1,6 @@
-export const getProducts = async () => {
+import { IProduct } from "../models/types"
+
+export const getProducts = async (): Promise<IProduct[]> => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/grocery`, {
     method: 'GET'
   })
@@ -10,7 +12,7 @@ export const getProducts = async () => {
   return products
 }
 
-export const saveToFavorites = async (groceryId: string, isFavorite: boolean) => {
+export const saveToFavorites = async (groceryId: string, isFavorite: boolean): Promise<void> => {
   const body = { favorite: isFavorite ? 0 : '1' }
   const headers = { "Content-type": "application/json" }
   const response = await fetch(`${process.env.REACT_APP_API_URL}/grocery/${groceryId}`, {

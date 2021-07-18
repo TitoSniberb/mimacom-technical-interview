@@ -7,3 +7,7 @@ export type IProduct = {
   productDescription: string,
   favorite: string | number
 }
+
+export type IProducts = {
+  [id: string]: IProduct
+}
