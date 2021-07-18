@@ -3,29 +3,59 @@ import './App.scss'
 import Cart from './components/Cart'
 import LoadingTruck from './components/LoadingTruck';
 import { getProducts } from './lib/apis/productAPIcalls';
-import { IProduct, IProducts } from './lib/models/types';
+import { ICartProduct, IProduct, IProducts } from './lib/models/types';
 import Gallery from './views/Gallery';
 
 const objectFilter = (obj: Record<any, any>, fn: any): Record<any, any> => Object.fromEntries(Object.entries(obj).filter(fn))
+const objectMap = (obj: Record<any, any>, fn: any): Record<any, any> => Object.fromEntries(Object.entries(obj).map(([key, value], i) => [key, fn(value, key, i)]))
 
 function App() {
   const [products, setProducts] = useState<IProducts>({});
-  const [productsInCart, setProductsInCart] = useState<IProducts>({});
+  const [productsInCart, setProductsInCart] = useState<ICartProduct>({});
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   const addToCart = (productId: string) => {
-    const newProd: IProducts = {
-      [productId]: products[productId]
+    if (productsInCart[productId]) {
+      if (productsInCart[productId].total < products[productId].stock) {
+        const updatedItem = {
+          ...productsInCart[productId],
+          total: productsInCart[productId].total + 1
+        }
+
+        const updatedProducts = objectMap({ ...productsInCart }, (value: { product: IProduct, total: number }) => {
+          if (value.product.id === productId) {
+            return updatedItem
+          }
+          return value
+        })
+
+        setProductsInCart(updatedProducts)
+      }
+    } else {
+      setProductsInCart(prevProducts => ({ ...prevProducts, [productId]: { product: products[productId], total: 1 } }))
     }
 
-    setProductsInCart(prevProducts => ({ ...prevProducts, ...newProd }))
   }
 
   const removeFromCart = (productId: string) => {
-    if (productsInCart[products[productId].id]) {
-      setProductsInCart(prevProducts => objectFilter(prevProducts, ([key, value]: IProduct[]) => value.id !== productId))
+    if (productsInCart[productId] && productsInCart[productId].total > 1) {
+      const updatedItem = {
+        ...productsInCart[productId],
+        total: productsInCart[productId].total - 1
+      }
+
+      const updatedProducts = objectMap({ ...productsInCart }, (value: { product: IProduct, total: number }) => {
+        if (value.product.id === productId) {
+          return updatedItem
+        }
+        return value
+      })
+
+      setProductsInCart(updatedProducts)
+    } else {
+      setProductsInCart(prevProducts => objectFilter(prevProducts, ([key, value]: any) => value.product.id !== productId))
     }
   }
 
@@ -35,7 +65,6 @@ function App() {
         const products = await getProducts()
 
         if (products) {
-          console.log('products =>', products)
           const keyedProducts = products.reduce((acc, product) => ({ ...acc, [product.id]: product }), {})
           setProducts(keyedProducts)
         }
@@ -60,8 +89,8 @@ function App() {
           </div>
           :
           <div className='app-products_container'>
-            <Gallery products={products} addToCart={addToCart}  />
-            <Cart cart={productsInCart} removeFromCart={removeFromCart} />
+            <Gallery products={products} addToCart={addToCart} />
+            <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
           </div>
       }
       {
@@ -73,7 +102,6 @@ function App() {
           </div>
         )
       }
-
     </div>
   );
 }

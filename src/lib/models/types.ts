@@ -11,3 +11,10 @@ export type IProduct = {
 export type IProducts = {
   [id: string]: IProduct
 }
+
+export type ICartProduct = {
+  [id: string]: {
+    product: IProduct,
+    total: number
+  }
+}

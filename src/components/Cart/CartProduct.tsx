@@ -3,11 +3,18 @@ import { IProduct } from '../../lib/models/types'
 import './cartProduct.scss'
 
 interface CartProductProps {
-  product: IProduct,
+  cartProduct: {
+    product: IProduct,
+    total: number
+  },
+  addToCart: (productId: string) => void
   removeFromCart: (productId: string) => void
 }
 
-const CartProduct = ({ product: { image_url, productName, id, price }, removeFromCart }: CartProductProps) => {
+const CartProduct = ({ cartProduct, addToCart, removeFromCart }: CartProductProps) => {
+  const { image_url, productName, price, id } = cartProduct.product
+  const { total } = cartProduct
+
   return (
     <div className='cart_product-main_container'>
       <div className='cart-image_container'>
@@ -20,8 +27,8 @@ const CartProduct = ({ product: { image_url, productName, id, price }, removeFro
         <div className='cart_product-button_container'>
           <div>
             <button onClick={() => removeFromCart(id)}>-</button>
-            3
-            <button>+</button>
+            {total}
+            <button onClick={() => addToCart(id)}>+</button>
           </div>
         </div>
 

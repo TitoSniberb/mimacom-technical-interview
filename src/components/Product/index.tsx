@@ -47,7 +47,7 @@ const Product = ({ product: { price, image_url, productDescription, productName,
           <span className='product-info'>{stock}</span>
 
           <div className='product-button_container'>
-            <button className='product-button' onClick={() => addToCart(id)}>Add</button>
+            <button className={`product-button ${!stock && 'disabled'}`} disabled={!stock} onClick={() => addToCart(id)}>Add</button>
             <img onClick={() => handleFavoriteClick(id)} src={!isFavorite ? getIcons('HeartBlue') : getIcons('HeartFilledBlue')} alt="heart" width='20' height='20' />
           </div>
         </div>
@@ -56,4 +56,4 @@ const Product = ({ product: { price, image_url, productDescription, productName,
   )
 }
 
-export default Product
+export default React.memo(Product)
