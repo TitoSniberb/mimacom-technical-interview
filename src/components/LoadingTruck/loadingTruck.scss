@@ -54,16 +54,36 @@
   border-radius: 50%;
 }
 
-.smoke,
-.smoke::before,
+.smoke {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #333;
+  right: 0;
+  bottom: -30px;
+  border-radius: 50%;
+}
+
+.smoke::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #333;
+  right: -10px;
+  bottom: 0px;
+  border-radius: 50%;
+}
+
 .smoke::after {
   content: '';
   position: absolute;
-  width: 0.3rem;
-  height: 0.3rem;
+  width: 10px;
+  height: 10px;
   background-color: #333;
-  right: -0.1rem;
-  bottom: -0.2rem;
+  right: 0;
+  bottom: 10px;
   border-radius: 50%;
 }
 
@@ -126,15 +146,15 @@
 
 @keyframes move {
   0% {
-    margin-left: 90%;
+    margin-left: 100%;
   }
 
   50% {
-    margin-left: 45%;
+    margin-left: 0%;
   }
 
   100% {
-    margin-left: 0;
+    margin-left: -100%;
   }
 
   0%,
@@ -161,27 +181,27 @@
 
 @keyframes smoke-1 {
   to {
-    width: 3em;
-    height: 3em;
-    right: -3em;
-    bottom: 0.5em;
+    width: 20px;
+    height: 20px;
+    right: -20px;
+    bottom: -20px;
   }
 }
 
 @keyframes smoke-2 {
   to {
-    width: 2.5em;
-    height: 2.5em;
-    right: -6em;
-    bottom: 0.8em;
+    width: 30px;
+    height: 30px;
+    right: -50px;
+    bottom: 50px;
   }
 }
 
 @keyframes smoke-3 {
   to {
-    width: 3.5em;
-    height: 3.5em;
-    right: -4em;
-    bottom: 0.2em;
+    width: 40px;
+    height: 40px;
+    right: -80px;
+    bottom: 50px;
   }
 }

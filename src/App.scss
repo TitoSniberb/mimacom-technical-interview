@@ -1,6 +1,9 @@
 .app-main_container {
   display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
+  width: 100vw;
 }
 
 .app-products_container {
@@ -35,9 +38,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 
   span:nth-child(2) {
     margin: 1.5rem 0;
+    font-size: 26px;
   }
 }
 
