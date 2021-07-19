@@ -1,10 +1,9 @@
 .gallery-main_container {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  width: 100%;
   padding: 32px;
   background: rgb(247, 247, 247);
-
   overflow-y: auto;
 }
 

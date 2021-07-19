@@ -13,6 +13,13 @@
   display: flex;
   width: 100%;
   height: 75px;
+  position: relative;
+
+  img:nth-child(2) {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
 }
 
 .product-image {
@@ -46,10 +53,6 @@
   white-space: normal;
 }
 
-.product-info {
-  color: rgb(122, 122, 255);
-}
-
 .product-description {
   font-size: 12px;
   text-overflow: ellipsis;
@@ -65,10 +68,9 @@
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
-
-  div span:nth-child(1) {
-    font-size: 15px;
-    font-style: italic;
+  font-size: 15px;
+  
+  div span:nth-child(2) {
     margin-right: 4px;
   }
 }

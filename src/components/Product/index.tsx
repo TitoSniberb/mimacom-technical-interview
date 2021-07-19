@@ -33,6 +33,7 @@ const Product = ({ product: { price, image_url, productDescription, productName,
     <div className='product-main_container'>
       <div className='product-image_container'>
         <img className='product-image' src={image_url} alt="" />
+        <img onClick={() => handleFavoriteClick(id)} src={!isFavorite ? getIcons('HeartBlue') : getIcons('HeartFilledBlue')} alt="heart" width='20' height='20' />
       </div>
 
       <div className='product-body_container'>
@@ -44,14 +45,13 @@ const Product = ({ product: { price, image_url, productDescription, productName,
         <span className='product-description'>{productDescription}</span>
 
         <div className='product-footer_container'>
-          <div>
-            <span>Stock:</span>
-            <span className='product-info'>{stock}</span>
+          <div className='product-info'>
+            <span>{stock}</span>
+            <span> left</span>
           </div>
 
           <div className='product-button_container'>
             <button className={`product-button ${!stock && 'disabled'}`} disabled={!stock} onClick={() => addToCart(id)}>Add</button>
-            <img onClick={() => handleFavoriteClick(id)} src={!isFavorite ? getIcons('HeartBlue') : getIcons('HeartFilledBlue')} alt="heart" width='20' height='20' />
           </div>
         </div>
       </div>

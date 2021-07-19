@@ -1,10 +1,11 @@
 .cart-main_container {
   display: flex;
   flex-direction: column;
-  width: 600px;
   background-color: white;
   overflow-y: scroll;
   padding: 32px;
+  width: 35%;
+  max-width: 350px;
 }
 
 .cart-main_container.scrollbar::-webkit-scrollbar {
