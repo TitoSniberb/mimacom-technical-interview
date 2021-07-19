@@ -8,6 +8,22 @@
   overflow-y: auto;
 }
 
+.gallery-title_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 2rem;
+
+  img {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .product-list {
   display: grid;
   gap: 2rem;

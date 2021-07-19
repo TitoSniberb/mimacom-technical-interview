@@ -4,6 +4,7 @@ export const getProducts = async (): Promise<IProduct[]> => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/grocery`, {
     method: 'GET'
   })
+
   if (response.status !== 200) {
     throw new Error('There was an error getting the groceries, please try again later.')
   }
@@ -24,5 +25,17 @@ export const saveToFavorites = async (groceryId: string, isFavorite: boolean): P
   if (response.status !== 200) {
     throw new Error('There was an error saving the product to favorites, please try again later.')
   }
-  console.log('saveToFavorites =>', response)
+}
+
+export const getAllFavorites = async (): Promise<IProduct[]> => {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/grocery?favorite=1`, {
+    method: 'GET'
+  })
+
+  if (response.status !== 200) {
+    throw new Error('We could not load your favorites. Please try again.')
+  }
+  const favorites = response.json()
+
+  return favorites
 }
