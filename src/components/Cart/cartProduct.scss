@@ -4,6 +4,8 @@
   border-radius: 8px;
   margin-bottom: 32px;
   overflow: hidden;
+  background: white;
+  box-shadow: 0 0 10px rgb(219, 219, 219);
 }
 
 .cart-image_container {
@@ -63,7 +65,7 @@
 
 .cart_product-price {
   position: absolute;
-  right: 0;
+  right: 8px;
   top: 50%;
   bottom: 50%;
 }

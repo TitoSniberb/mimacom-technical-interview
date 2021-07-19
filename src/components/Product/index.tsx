@@ -38,13 +38,16 @@ const Product = ({ product: { price, image_url, productDescription, productName,
       <div className='product-body_container'>
         <div className='product-name_container'>
           <span className='product-name'>{productName}</span>
-          <span className='product-info'>{price}</span>
+          <span className='product-info'>${price}</span>
         </div>
 
         <span className='product-description'>{productDescription}</span>
 
         <div className='product-footer_container'>
-          <span className='product-info'>{stock}</span>
+          <div>
+            <span>Stock:</span>
+            <span className='product-info'>{stock}</span>
+          </div>
 
           <div className='product-button_container'>
             <button className={`product-button ${!stock && 'disabled'}`} disabled={!stock} onClick={() => addToCart(id)}>Add</button>
