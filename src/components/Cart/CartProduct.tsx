@@ -25,11 +25,9 @@ const CartProduct = ({ cartProduct, addToCart, removeFromCart }: CartProductProp
         <span className='cart_product-name'>{productName}</span>
 
         <div className='cart_product-button_container'>
-          <div>
-            <button onClick={() => removeFromCart(id)}>-</button>
-            {total}
-            <button onClick={() => addToCart(id)}>+</button>
-          </div>
+          <button onClick={() => removeFromCart(id)}>-</button>
+          <span>{total}</span>
+          <button onClick={() => addToCart(id)}>+</button>
         </div>
 
         <div className='cart_product-price'>${price}</div>

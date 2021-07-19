@@ -38,7 +38,27 @@
 
 .cart_product-button_container {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  width: max-content;
+  border: 2px solid rgb(211, 211, 211);
+  border-radius: 4px;
+  overflow: hidden;
+  background: white;
+
+  button {
+    border: none;
+    padding: 4px 12px;
+    background-color: transparent;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background: rgb(223, 223, 223);
+  }
+
+  span {
+    margin: 0 4px;
+  }
 }
 
 .cart_product-price {

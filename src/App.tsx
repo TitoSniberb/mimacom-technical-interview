@@ -82,7 +82,7 @@ function App() {
   return (
     <div className='app-main_container'>
       {
-        true ?
+        isLoading ?
           <div className='app-truck_Container'>
             <LoadingTruck />
             <span>We are fetching your groceries!</span>
