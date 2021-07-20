@@ -43,13 +43,16 @@ const Cart = ({ addToCart, removeFromCart, cart }: CartProps) => {
       </div>
 
       <div className='cart-checkout'>
-        <span>
-          Total items in cart: {totalItems}
-        </span>
+        <div>
+          <span>
+            Items in cart: {totalItems}
+          </span>
+          <span>
+            Total: {toPay}$
+          </span>
+        </div>
 
-        <span>
-         Total: {toPay}$
-        </span>
+        <button>Checkout</button>
       </div>
     </div>
   )

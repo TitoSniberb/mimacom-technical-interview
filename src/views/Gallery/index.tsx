@@ -18,7 +18,6 @@ const Gallery = ({ products, addToCart }: GalleryProps) => {
   const [favorites, setFavorites] = useState<IProducts>({})
 
   useEffect(() => {
-    console.log('trig')
     if (showFavorites) {
       const fetchFavorites = async () => {
         setIsLoading(true)
@@ -41,9 +40,9 @@ const Gallery = ({ products, addToCart }: GalleryProps) => {
   return (
     <div className='gallery-main_container scrollbar'>
       <div className='gallery-title_container'>
-        <h1>Product list</h1>
+        <h1>{!showFavorites ? 'Product list' : 'Favorite products'}</h1>
 
-        <img src={getIcons('HeartFilledBlue')} alt="fav" onClick={() => !isLoading && setShowFavorites(!showFavorites)} />
+        <img src={!showFavorites ? getIcons('HeartFilledBlue') : getIcons('List')} alt="fav" onClick={() => !isLoading && setShowFavorites(!showFavorites)} />
       </div>
 
       <div className='product-list'>

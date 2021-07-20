@@ -4,17 +4,23 @@ import Cart from './components/Cart'
 import LoadingTruck from './components/LoadingTruck';
 import { getProducts } from './lib/apis/productAPIcalls';
 import { ICartProduct, IProduct, IProducts } from './lib/models/types';
+import { getIcons } from './lib/services/getIcons';
 import Gallery from './views/Gallery';
 
 const objectFilter = (obj: Record<any, any>, fn: any): Record<any, any> => Object.fromEntries(Object.entries(obj).filter(fn))
 const objectMap = (obj: Record<any, any>, fn: any): Record<any, any> => Object.fromEntries(Object.entries(obj).map(([key, value], i) => [key, fn(value, key, i)]))
 
 function App() {
-  const [products, setProducts] = useState<IProducts>({});
-  const [productsInCart, setProductsInCart] = useState<ICartProduct>({});
+  const [windowDimension, setWindowDimension] = useState(0)
+  const [showCart, setShowCart] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [products, setProducts] = useState<IProducts>({})
+  const [productsInCart, setProductsInCart] = useState<ICartProduct>({})
+
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  const isMobile = windowDimension <= 800;
 
   const addToCart = (productId: string) => {
     if (productsInCart[productId]) {
@@ -75,8 +81,16 @@ function App() {
         setIsLoading(false)
       }
     }
+    const handleResize = () => {
+      setWindowDimension(window.innerWidth)
+      console.log(window.innerWidth)
+    }
 
     fetchProducts()
+    setWindowDimension(window.innerWidth)
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, [])
 
   return (
@@ -96,8 +110,26 @@ function App() {
             </div>
             :
             <div className='app-products_container'>
-              <Gallery products={products} addToCart={addToCart} />
-              <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
+              {
+                !isMobile ?
+                  <>
+                    <Gallery products={products} addToCart={addToCart} />
+                    <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                  </>
+                  :
+                  <div className='app-mobile_products_container'>
+                    <div className='app-navbar' onClick={() => setShowCart(!showCart)} style={{ background: showCart ? 'whitesmoke' : 'white' }}>
+                      <img src={!showCart ? getIcons('CartBlue') : getIcons('ArrowLeft')} alt="cart" width='36' height='36' />
+                      <span>Cart</span>
+                    </div>
+
+                    {showCart ?
+                      <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                      :
+                      <Gallery products={products} addToCart={addToCart} />
+                    }
+                  </div>
+              }
             </div>
       }
     </div>
