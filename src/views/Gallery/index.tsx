@@ -8,7 +8,6 @@ import './gallery.scss'
 interface GalleryProps {
   products: IProducts
   addToCart: (productId: string) => void
-
 }
 
 const Gallery = ({ products, addToCart }: GalleryProps) => {
