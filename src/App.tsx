@@ -97,38 +97,36 @@ function App() {
     <div className='app-main_container'>
       {
         isLoading ?
-          <div className='app-truck_Container'>
-            <LoadingTruck />
-            <span>We are fetching your groceries!</span>
-          </div>
+          <>
+            <div className='app-truck_Container'>
+              <LoadingTruck />
+              <span>We are fetching your groceries!</span>
+            </div>
+            {error &&
+              <div className='app-error_container'>
+                <span>You likely forgot to start the json server on local.</span>
+                <p>Please open the <code>server-api</code> folder and from the Windows command line or Mac terminal (we Linux haters sorry) do <code>yarn start</code>.</p>
+                <p>Please be sure to add <code>--port 3001</code>!</p>
+              </div>
+            }
+          </>
           :
-          error ?
-            <div className='app-error_container'>
-              <span>You likely forgot to start the json server on local.</span>
-              <p>Please open the <code>server-api</code> folder and from the Windows command line or Mac terminal (we Linux haters sorry) do <code>yarn start</code>.</p>
-              <p>Please be sure to add <code>--port 3001</code>!</p>
+          !isMobile ?
+            <div className='app-products_container'>
+              <Gallery products={products} addToCart={addToCart} />
+              <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
             </div>
             :
-            <div className='app-products_container'>
-              {
-                !isMobile ?
-                  <>
-                    <Gallery products={products} addToCart={addToCart} />
-                    <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
-                  </>
-                  :
-                  <div className='app-mobile_products_container'>
-                    <div className='app-navbar' onClick={() => setShowCart(!showCart)} style={{ background: showCart ? 'whitesmoke' : 'white' }}>
-                      <img src={!showCart ? getIcons('CartBlue') : getIcons('ArrowLeft')} alt="cart" width='36' height='36' />
-                      <span>Cart</span>
-                    </div>
+            <div className='app-mobile_products_container'>
+              <div className='app-navbar' onClick={() => setShowCart(!showCart)} style={{ background: showCart ? 'whitesmoke' : 'white' }}>
+                <img src={!showCart ? getIcons('CartBlue') : getIcons('ArrowLeft')} alt="cart" width='36' height='36' />
+                <span>{showCart ? 'Products' : 'Cart'}</span>
+              </div>
 
-                    {showCart ?
-                      <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
-                      :
-                      <Gallery products={products} addToCart={addToCart} />
-                    }
-                  </div>
+              {showCart ?
+                <Cart cart={productsInCart} addToCart={addToCart} removeFromCart={removeFromCart} />
+                :
+                <Gallery products={products} addToCart={addToCart} />
               }
             </div>
       }

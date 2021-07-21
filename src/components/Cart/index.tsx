@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ICartProduct, IProducts } from '../../lib/models/types'
+import { ICartProduct } from '../../lib/models/types'
 import './cart.scss'
 import CartProduct from './CartProduct'
 
@@ -7,9 +7,10 @@ interface CartProps {
   cart: ICartProduct
   addToCart: (productId: string) => void
   removeFromCart: (productId: string) => void
+  isMobile?: boolean
 }
 
-const Cart = ({ addToCart, removeFromCart, cart }: CartProps) => {
+const Cart = ({ addToCart, removeFromCart, cart, isMobile }: CartProps) => {
   const [totalItems, setTotalItems] = useState(0);
   const [toPay, setToPay] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
@@ -33,12 +34,12 @@ const Cart = ({ addToCart, removeFromCart, cart }: CartProps) => {
   }, [cart])
 
   return (
-    <div className='cart-main_container scrollbar'>
-      <h1>Cart</h1>
+    <div className='cart-main_container'>
+      {!isMobile && <h1>Cart</h1>}
 
       {showWarning && <span className='cart-warning'>Please take into account that the items on your cart are not reserved!</span>}
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className='cart-list scrollbar'>
         {Object.values(cart).map((item) => <CartProduct cartProduct={item} addToCart={addToCart} removeFromCart={removeFromCart} key={item.product.id} />)}
       </div>
 
