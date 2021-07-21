@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Product from '../../components/Product'
 import { getAllFavorites } from '../../lib/apis/productAPIcalls'
-import { IProduct, IProducts } from '../../lib/models/types'
+import { IProducts } from '../../lib/models/types'
 import { getIcons } from '../../lib/services/getIcons'
 import './gallery.scss'
 
